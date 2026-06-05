@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Guerra Civil española — Actividades B2</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rojo: #8b0000;
+    --rojo-claro: #c0392b;
+    --oro: #c9a84c;
+    --oro-claro: #e8c97a;
+    --negro: #0d0d0d;
+    --gris-oscuro: #1a1a1a;
+    --gris-medio: #2d2d2d;
+    --gris-texto: #ccc;
+    --blanco: #f5f0e8;
+    --blanco-puro: #fff;
+    --correcto: #2d6a2d;
+    --incorrecto: #8b0000;
+    --correcto-bg: #d4edda;
+    --incorrecto-bg: #f8d7da;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--negro);
+    color: var(--blanco);
+    min-height: 100vh;
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 60%, #2a0000 0%, #0d0d0d 70%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(139,0,0,0.04) 40px, rgba(139,0,0,0.04) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(139,0,0,0.04) 40px, rgba(139,0,0,0.04) 41px);
+    pointer-events: none;
+  }
+
+  .hero-year {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(80px, 20vw, 220px);
+    font-weight: 700;
+    color: rgba(139,0,0,0.12);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: -8px;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 720px; }
+
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--oro);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    color: var(--blanco);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--oro-claro);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: #aaa;
+    margin-bottom: 12px;
+    font-weight: 300;
+  }
+
+  .hero-nivel {
+    display: inline-block;
+    border: 1px solid var(--oro);
+    color: var(--oro);
+    font-size: 12px;
+    letter-spacing: 3px;
+    padding: 6px 20px;
+    margin-bottom: 48px;
+    text-transform: uppercase;
+  }
+
+  /* Campos de datos personales en hero */
+  .hero-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto 32px;
+  }
+
+  .hero-form input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--blanco);
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    padding: 14px 18px;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .hero-form input::placeholder { color: #666; }
+  .hero-form input:focus { border-color: var(--oro); }
+
+  .btn-start {
+    background: var(--rojo);
+    color: var(--blanco);
+    border: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    padding: 16px 40px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    border-radius: 2px;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .btn-start:hover { background: var(--rojo-claro); transform: translateY(-1px); }
+
+  /* ── NAV LATERAL ── */
+  .nav-lateral {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 220px;
+    background: var(--gris-oscuro);
+    border-right: 1px solid rgba(201,168,76,0.15);
+    padding: 40px 0;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-lateral.visible { display: flex; }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--oro);
+    padding: 0 24px 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    border-left: 2px solid transparent;
+    text-transform: uppercase;
+  }
+
+  .nav-item:hover { color: var(--blanco); background: rgba(255,255,255,0.03); }
+  .nav-item.activo { color: var(--oro); border-left-color: var(--oro); background: rgba(201,168,76,0.05); }
+  .nav-item.completada { color: #4a7a4a; }
+  .nav-item .num { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; min-width: 20px; }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 220px;
+    display: none;
+  }
+
+  .main.visible { display: block; }
+
+  /* ── SECCIONES ── */
+  .seccion {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 48px 80px;
+    max-width: 860px;
+  }
+
+  .seccion.activa { display: block; }
+
+  .sec-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--oro);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .sec-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .sec-instrucciones {
+    font-size: 15px;
+    color: #aaa;
+    margin-bottom: 40px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--rojo);
+    background: rgba(139,0,0,0.08);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .divisor {
+    width: 60px;
+    height: 2px;
+    background: var(--rojo);
+    margin: 16px 0 40px;
+  }
+
+  /* ── VIDEO ── */
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* ── PREGUNTAS ── */
+  .pregunta-bloque {
+    margin-bottom: 32px;
+    padding: 24px;
+    background: var(--gris-oscuro);
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: border-color 0.2s;
+  }
+
+  .pregunta-bloque:hover { border-color: rgba(201,168,76,0.2); }
+
+  .pregunta-texto {
+    font-size: 15px;
+    margin-bottom: 16px;
+    color: var(--blanco);
+    line-height: 1.6;
+  }
+
+  .pregunta-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--oro);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* Opciones múltiple */
+  .opciones { display: flex; flex-direction: column; gap: 8px; }
+
+  .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 14px;
+    color: #ccc;
+  }
+
+  .opcion:hover { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.3); color: var(--blanco); }
+  .opcion.seleccionada { background: rgba(201,168,76,0.12); border-color: var(--oro); color: var(--blanco); }
+  .opcion.correcta { background: rgba(45,106,45,0.2); border-color: #4a7a4a; color: #a8d5a8; }
+  .opcion.incorrecta { background: rgba(139,0,0,0.2); border-color: var(--rojo); color: #f4a0a0; }
+
+  .opcion-letra {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--oro);
+    min-width: 18px;
+    margin-top: 1px;
+  }
+
+  /* Inputs de texto */
+  .input-hueco {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 2px solid var(--rojo);
+    color: var(--blanco);
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    padding: 10px 14px;
+    border-radius: 2px 2px 0 0;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-top: 8px;
+  }
+
+  .input-hueco:focus { border-bottom-color: var(--oro); background: rgba(255,255,255,0.06); }
+  .input-hueco.correcto { border-bottom-color: #4a7a4a; background: rgba(45,106,45,0.1); }
+  .input-hueco.incorrecto { border-bottom-color: var(--rojo-claro); background: rgba(139,0,0,0.1); }
+
+  .textarea-grande {
+    width: 100%;
+    min-height: 220px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--blanco);
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    padding: 16px;
+    border-radius: 2px;
+    outline: none;
+    resize: vertical;
+    line-height: 1.8;
+    transition: border-color 0.2s;
+  }
+
+  .textarea-grande:focus { border-color: var(--oro); }
+
+  .contador-palabras {
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  .contador-palabras.ok { color: #4a7a4a; }
+  .contador-palabras.exceso { color: var(--rojo-claro); }
+
+  /* Feedback de respuesta */
+  .feedback-respuesta {
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 2px;
+    display: none;
+  }
+
+  .feedback-respuesta.correcto { display: block; background: rgba(45,106,45,0.2); color: #a8d5a8; border-left: 3px solid #4a7a4a; }
+  .feedback-respuesta.incorrecto { display: block; background: rgba(139,0,0,0.2); color: #f4a0a0; border-left: 3px solid var(--rojo); }
+
+  /* ── BOTONES ── */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    padding: 14px 32px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid;
+    text-transform: uppercase;
+  }
+
+  .btn-primary {
+    background: var(--rojo);
+    border-color: var(--rojo);
+    color: var(--blanco);
+  }
+
+  .btn-primary:hover { background: var(--rojo-claro); border-color: var(--rojo-claro); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    border-color: rgba(255,255,255,0.2);
+    color: #aaa;
+  }
+
+  .btn-secondary:hover { border-color: var(--oro); color: var(--oro); }
+
+  .btn-gold {
+    background: transparent;
+    border-color: var(--oro);
+    color: var(--oro);
+  }
+
+  .btn-gold:hover { background: var(--oro); color: var(--negro); }
+
+  /* ── RESULTADO ── */
+  .resultado-box {
+    padding: 32px;
+    background: var(--gris-oscuro);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 2px;
+    margin-bottom: 32px;
+    display: none;
+  }
+
+  .resultado-box.visible { display: block; }
+
+  .nota-grande {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .nota-grande.verde { color: #6abf6a; }
+  .nota-grande.amarillo { color: var(--oro-claro); }
+  .nota-grande.rojo { color: #f47070; }
+
+  .nota-label { font-size: 13px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* Fragmentos comprensión lectora */
+  .fragmentos-box {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 20px 24px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    line-height: 1.9;
+    color: #bbb;
+  }
+
+  .fragmentos-box strong { color: var(--oro); }
+
+  /* Audio */
+  .audio-player {
+    width: 100%;
+    margin-bottom: 32px;
+    accent-color: var(--rojo);
+    filter: invert(0);
+  }
+
+  .audio-placeholder {
+    padding: 20px 24px;
+    background: rgba(139,0,0,0.1);
+    border: 1px dashed rgba(139,0,0,0.4);
+    border-radius: 2px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+  }
+
+  /* Reflexión gramatical */
+  .frase-gram {
+    background: var(--gris-oscuro);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-left: 3px solid var(--oro);
+    padding: 20px 24px;
+    border-radius: 0 2px 2px 0;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #ccc;
+    white-space: pre-line;
+    line-height: 1.8;
+  }
+
+  /* Enlace Form */
+  .form-link-box {
+    background: rgba(139,0,0,0.1);
+    border: 1px solid rgba(139,0,0,0.3);
+    border-radius: 2px;
+    padding: 24px;
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .form-link-box p { font-size: 14px; color: #aaa; margin-bottom: 16px; }
+
+  .btn-form {
+    display: inline-block;
+    background: var(--rojo);
+    color: var(--blanco);
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    padding: 14px 36px;
+    border-radius: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+
+  .btn-form:hover { background: var(--rojo-claro); }
+
+  /* Progress */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 220px; right: 0;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    z-index: 200;
+    display: none;
+  }
+
+  .progress-bar.visible { display: block; }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--rojo);
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-lateral { width: 100%; height: auto; position: relative; }
+    .main { margin-left: 0; }
+    .seccion { padding: 32px 20px 60px; }
+    .progress-bar { left: 0; }
+  }
+
+  /* Animación entrada */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .seccion.activa { animation: fadeUp 0.35s ease; }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-year">1936</div>
+  <div class="hero-content">
+    <p class="hero-label">Liceo Cecioni · Español B2</p>
+    <h1>La <em>Guerra Civil</em><br>española</h1>
+    <p class="hero-sub">Historia, cultura y memoria · 9 actividades</p>
+    <div class="hero-nivel">Nivel B2 · MCER 2018</div>
+    <div class="hero-form">
+      <input type="text" id="inp-nombre" placeholder="Nombre y apellidos" autocomplete="name">
+      <input type="email" id="inp-email" placeholder="Correo electrónico" autocomplete="email">
+    </div>
+    <button class="btn-start" onclick="iniciar()">Empezar ➔</button>
+  </div>
+</section>
+
+<!-- ── BARRA PROGRESO ── -->
+<div class="progress-bar" id="progressBar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<!-- ── NAV LATERAL ── -->
+<nav class="nav-lateral" id="navLateral">
+  <div class="nav-logo">La Guerra Civil<br>española</div>
+  <div class="nav-item" onclick="irA(0)" id="nav-0"><span class="num">1</span> Ideas previas</div>
+  <div class="nav-item" onclick="irA(1)" id="nav-1"><span class="num">2</span> Vídeo</div>
+  <div class="nav-item" onclick="irA(2)" id="nav-2"><span class="num">3</span> Opción múltiple</div>
+  <div class="nav-item" onclick="irA(3)" id="nav-3"><span class="num">4</span> Audio</div>
+  <div class="nav-item" onclick="irA(4)" id="nav-4"><span class="num">5</span> Léxico</div>
+  <div class="nav-item" onclick="irA(5)" id="nav-5"><span class="num">6</span> Comprensión lectora</div>
+  <div class="nav-item" onclick="irA(6)" id="nav-6"><span class="num">7</span> Gramática</div>
+  <div class="nav-item" onclick="irA(7)" id="nav-7"><span class="num">8</span> Producción escrita</div>
+  <div class="nav-item" onclick="irA(8)" id="nav-8"><span class="num">✓</span> Enviar</div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main" id="mainContent">
+
+  <!-- ACT 1: IDEAS PREVIAS -->
+  <section class="seccion activa" id="sec-0">
+    <p class="sec-label">Actividad 1</p>
+    <h2 class="sec-titulo">Ideas previas</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Antes de comenzar, reflexiona sobre lo que ya sabes. No hay respuestas correctas o incorrectas: lo que importa es tu punto de partida.</p>
+
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 1</p>
+      <p class="pregunta-texto">¿Qué sabes sobre la Guerra Civil española?</p>
+      <textarea class="textarea-grande" id="ip1" placeholder="Escribe aquí..."></textarea>
+    </div>
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 2</p>
+      <p class="pregunta-texto">¿Qué fechas o períodos conoces relacionados con ese conflicto?</p>
+      <textarea class="textarea-grande" id="ip2" placeholder="Escribe aquí..."></textarea>
+    </div>
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 3</p>
+      <p class="pregunta-texto">¿Qué bandos se enfrentaron y qué representaba cada uno?</p>
+      <textarea class="textarea-grande" id="ip3" placeholder="Escribe aquí..."></textarea>
+    </div>
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 4</p>
+      <p class="pregunta-texto">¿Conoces algún personaje histórico, literario o artístico de ese período?</p>
+      <textarea class="textarea-grande" id="ip4" placeholder="Escribe aquí..."></textarea>
+    </div>
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 5</p>
+      <p class="pregunta-texto">¿Existe algún conflicto civil similar en la historia de tu país? ¿Qué puntos en común tiene con la Guerra Civil española?</p>
+      <textarea class="textarea-grande" id="ip5" placeholder="Escribe aquí..."></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="siguiente(0)">Siguiente actividad ➔</button>
+    </div>
+  </section>
+
+  <!-- ACT 2: VÍDEO -->
+  <section class="seccion" id="sec-1">
+    <p class="sec-label">Actividad 2</p>
+    <h2 class="sec-titulo">Comprensión audiovisual</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Mira el vídeo completo. Después responde las preguntas de comprensión.</p>
+
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/5Zwv43MUA7s" allowfullscreen loading="lazy" title="La Guerra Civil española en 13 minutos — Memorias de Pez"></iframe>
+    </div>
+
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 1</p>
+      <p class="pregunta-texto">Según el vídeo, ¿qué fecha marca el inicio de la Guerra Civil española y qué acontecimiento la desencadenó?</p>
+      <textarea class="textarea-grande" id="v1" placeholder="Escribe aquí..." style="min-height:100px"></textarea>
+    </div>
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 2</p>
+      <p class="pregunta-texto">¿Qué países apoyaron a cada bando y qué intereses tenían en el conflicto?</p>
+      <textarea class="textarea-grande" id="v2" placeholder="Escribe aquí..." style="min-height:100px"></textarea>
+    </div>
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 3</p>
+      <p class="pregunta-texto">¿Qué fue el bombardeo de Guernica y qué importancia tuvo a nivel internacional?</p>
+      <textarea class="textarea-grande" id="v3" placeholder="Escribe aquí..." style="min-height:100px"></textarea>
+    </div>
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 4</p>
+      <p class="pregunta-texto">¿Cómo terminó la guerra y qué consecuencias inmediatas tuvo para la población española?</p>
+      <textarea class="textarea-grande" id="v4" placeholder="Escribe aquí..." style="min-height:100px"></textarea>
+    </div>
+    <div class="pregunta-bloque">
+      <p class="pregunta-num">Pregunta 5</p>
+      <p class="pregunta-texto">¿Qué aspecto del vídeo te ha resultado más sorprendente o desconocido? ¿Por qué?</p>
+      <textarea class="textarea-grande" id="v5" placeholder="Escribe aquí..." style="min-height:100px"></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="anterior(1)">← Anterior</button>
+      <button class="btn btn-primary" onclick="siguiente(1)">Siguiente actividad ➔</button>
+    </div>
+  </section>
+
+  <!-- ACT 3: OPCIÓN MÚLTIPLE -->
+  <section class="seccion" id="sec-2">
+    <p class="sec-label">Actividad 3</p>
+    <h2 class="sec-titulo">Cuestionario de opción múltiple</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Lee cada pregunta con atención y selecciona la respuesta correcta.</p>
+
+    <div id="preguntas-om"></div>
+
+    <div class="resultado-box" id="resultado-om">
+      <p class="nota-label">Resultado</p>
+      <div class="nota-grande" id="nota-om-num"></div>
+      <p style="color:#aaa; margin-top:8px; font-size:14px;" id="detalle-om"></p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="anterior(2)">← Anterior</button>
+      <button class="btn btn-gold" onclick="comprobarOM()">Comprobar respuestas</button>
+      <button class="btn btn-primary" onclick="siguiente(2)">Siguiente actividad ➔</button>
+    </div>
+  </section>
+
+  <!-- ACT 4: AUDIO -->
+  <section class="seccion" id="sec-3">
+    <p class="sec-label">Actividad 4</p>
+    <h2 class="sec-titulo">Comprensión auditiva</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Escucha el audio y completa los huecos con 1-3 palabras. Puedes escucharlo las veces que necesites.</p>
+
+    <div class="audio-placeholder">
+      🎙️ <strong>Audio de la profesora</strong> — Añade el archivo <code>audio.mp3</code> al repositorio y reemplaza este bloque por:<br><br>
+      <code>&lt;audio class="audio-player" controls src="audio.mp3"&gt;&lt;/audio&gt;</code>
+    </div>
+
+    <div id="huecos-audio"></div>
+
+    <div class="resultado-box" id="resultado-audio">
+      <p class="nota-label">Resultado</p>
+      <div class="nota-grande" id="nota-audio-num"></div>
+      <p style="color:#aaa; margin-top:8px; font-size:14px;" id="detalle-audio"></p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="anterior(3)">← Anterior</button>
+      <button class="btn btn-gold" onclick="comprobarAudio()">Comprobar respuestas</button>
+      <button class="btn btn-primary" onclick="siguiente(3)">Siguiente actividad ➔</button>
+    </div>
+  </section>
+
+  <!-- ACT 5: LÉXICO -->
+  <section class="seccion" id="sec-4">
+    <p class="sec-label">Actividad 5</p>
+    <h2 class="sec-titulo">Léxico en contexto</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Lee cada definición y escribe la palabra del banco que corresponde.</p>
+
+    <div class="fragmentos-box">
+      <strong>Banco de palabras:</strong> golpe de Estado · exilio · vanguardia · represalia · frente · milicias · censura · propaganda · retaguardia · trinchera · sublevación · depuración · armisticio
+    </div>
+
+    <div id="huecos-lexico"></div>
+
+    <div class="resultado-box" id="resultado-lexico">
+      <p class="nota-label">Resultado</p>
+      <div class="nota-grande" id="nota-lexico-num"></div>
+      <p style="color:#aaa; margin-top:8px; font-size:14px;" id="detalle-lexico"></p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="anterior(4)">← Anterior</button>
+      <button class="btn btn-gold" onclick="comprobarLexico()">Comprobar respuestas</button>
+      <button class="btn btn-primary" onclick="siguiente(4)">Siguiente actividad ➔</button>
+    </div>
+  </section>
+
+  <!-- ACT 6: COMPRENSIÓN LECTORA -->
+  <section class="seccion" id="sec-5">
+    <p class="sec-label">Actividad 6</p>
+    <h2 class="sec-titulo">Comprensión lectora</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Lee el texto y completa los huecos (1-10) con el fragmento correcto (A-L). Hay dos fragmentos que no debes usar.</p>
+
+    <div class="fragmentos-box">
+      <strong>A)</strong> aunque muchos intelectuales y artistas tuvieron que exiliarse<br>
+      <strong>B)</strong> que se convirtió en símbolo internacional de los horrores de la guerra<br>
+      <strong>C)</strong> a pesar de la política de no intervención declarada por las democracias occidentales<br>
+      <strong>D)</strong> lo que consolidó su poder absoluto sobre el Estado y la sociedad<br>
+      <strong>E)</strong> cuyas consecuencias sociales y políticas todavía generan debate<br>
+      <strong>F)</strong> mientras que el bando nacional recibía apoyo militar directo de Hitler y Mussolini<br>
+      <strong>G)</strong> que representaba los ideales de libertad, cultura y modernidad<br>
+      <strong>H)</strong> en un conflicto que se prolongó casi tres años<br>
+      <strong>I)</strong> sin que las instituciones internacionales pudieran evitarlo<br>
+      <strong>J)</strong> lo que provocó una oleada de solidaridad en todo el mundo<br>
+      <strong>K)</strong> aunque su influencia en el arte europeo fue inmediata y duradera<br>
+      <strong>L)</strong> que marcó el inicio de casi cuatro décadas de dictadura
+    </div>
+
+    <div style="background: var(--gris-oscuro); padding: 28px; border-radius: 2px; border: 1px solid rgba(255,255,255,0.06); line-height: 2; font-size: 15px; margin-bottom: 32px;">
+      <p style="margin-bottom:16px;">La Segunda República española representaba para muchos un proyecto renovador <strong style="color:var(--oro)">[1]___</strong>. La URSS envió armas y asesores al bando republicano <strong style="color:var(--oro)">[2]___</strong>. Federico García Lorca fue fusilado en agosto de 1936, <strong style="color:var(--oro)">[3]___</strong>. El cuadro <em>Guernica</em> de Picasso <strong style="color:var(--oro)">[4]___</strong> plasmó el horror del bombardeo de la población vasca. La derrota republicana supuso una tragedia humana enorme, <strong style="color:var(--oro)">[5]___</strong>. Franco concentró en su persona todos los poderes del Estado, <strong style="color:var(--oro)">[6]___</strong>. La Guerra Civil española es una herida histórica <strong style="color:var(--oro)">[7]___</strong>. Las Brigadas Internacionales llegaron a España <strong style="color:var(--oro)">[8]___</strong> para apoyar a la República. La cultura republicana floreció durante los años de guerra, <strong style="color:var(--oro)">[9]___</strong>. El bombardeo de Guernica conmocionó a la opinión pública internacional <strong style="color:var(--oro)">[10]___</strong>.</p>
+    </div>
+
+    <div id="huecos-cl"></div>
+
+    <div class="resultado-box" id="resultado-cl">
+      <p class="nota-label">Resultado</p>
+      <div class="nota-grande" id="nota-cl-num"></div>
+      <p style="color:#aaa; margin-top:8px; font-size:14px;" id="detalle-cl"></p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="anterior(5)">← Anterior</button>
+      <button class="btn btn-gold" onclick="comprobarCL()">Comprobar respuestas</button>
+      <button class="btn btn-primary" onclick="siguiente(5)">Siguiente actividad ➔</button>
+    </div>
+  </section>
+
+  <!-- ACT 7: GRAMÁTICA -->
+  <section class="seccion" id="sec-6">
+    <p class="sec-label">Actividad 7</p>
+    <h2 class="sec-titulo">Reflexión gramatical</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Observa las frases y sus variantes. ¿Qué diferencias gramaticales notas? Reflexiona y escribe tu análisis. Lo comentaremos en clase.</p>
+
+    <div id="frases-gram"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="anterior(6)">← Anterior</button>
+      <button class="btn btn-primary" onclick="siguiente(6)">Siguiente actividad ➔</button>
+    </div>
+  </section>
+
+  <!-- ACT 8: PRODUCCIÓN ESCRITA -->
+  <section class="seccion" id="sec-7">
+    <p class="sec-label">Actividad 8</p>
+    <h2 class="sec-titulo">Producción escrita</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Escribe un texto argumentativo de 220-250 palabras. Organiza tu texto con introducción, argumentos con ejemplos y conclusión.</p>
+
+    <div class="pregunta-bloque">
+      <p class="pregunta-texto" style="font-size:16px; color:var(--oro-claro); font-style:italic; margin-bottom:20px;">"La memoria histórica de la Guerra Civil española sigue generando debate en la sociedad actual. ¿Crees que es importante recordar y reconocer oficialmente a las víctimas de un conflicto histórico? Argumenta tu posición con ejemplos concretos."</p>
+      <textarea class="textarea-grande" id="produccion" placeholder="Escribe tu texto aquí (220-250 palabras)..." style="min-height:300px" oninput="contarPalabras()"></textarea>
+      <p class="contador-palabras" id="contador">0 / 250 palabras</p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="anterior(7)">← Anterior</button>
+      <button class="btn btn-primary" onclick="siguiente(7)">Enviar todas las respuestas ➔</button>
+    </div>
+  </section>
+
+  <!-- ACT 9: ENVÍO -->
+  <section class="seccion" id="sec-8">
+    <p class="sec-label">Último paso</p>
+    <h2 class="sec-titulo">Enviar respuestas</h2>
+    <div class="divisor"></div>
+    <p class="sec-instrucciones">Haz clic en el botón para enviar todas tus respuestas a través del formulario. Recibirás una copia en tu correo.</p>
+
+    <div style="background: var(--gris-oscuro); border: 1px solid rgba(201,168,76,0.3); border-radius: 2px; padding: 32px; margin-bottom: 32px;">
+      <p style="color:#aaa; font-size:14px; margin-bottom:16px;">Estudiante registrado:</p>
+      <p style="font-family:'Playfair Display',serif; font-size:22px; color:var(--blanco);" id="resumen-nombre">—</p>
+      <p style="color:#888; font-size:14px;" id="resumen-email">—</p>
+    </div>
+
+    <div class="form-link-box">
+      <p>Abre el formulario, rellena tus respuestas y envíalas. Recibirás tu nota por correo en unos minutos.</p>
+      <a href="https://docs.google.com/forms/d/1tjhVxfUE5tb5R6aQ7iD2uJcC8SX30samu0C9sAY1yIg/viewform" target="_blank" class="btn-form">Abrir formulario de entrega ➔</a>
+    </div>
+
+    <div style="margin-top:48px; padding:24px; border-top:1px solid rgba(255,255,255,0.06);">
+      <p style="color:#555; font-size:13px; text-align:center;">Liceo Statale Francesco Cecioni · Livorno · Español B2</p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="anterior(8)">← Anterior</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ── DATOS ────────────────────────────────────────────────
+
+const PREGUNTAS_OM = [
+  { texto: '1. ¿En qué año comenzó la Guerra Civil española?', opciones: ['1931','1934','1936','1939'], correcta: 2 },
+  { texto: '2. ¿Qué acontecimiento desencadenó directamente el inicio de la guerra?', opciones: ['La proclamación de la Segunda República','El golpe de Estado militar del 17-18 de julio de 1936','Las elecciones del Frente Popular','La renuncia del rey Alfonso XIII'], correcta: 1 },
+  { texto: '3. ¿Cómo se denominaba el bando que apoyaba al gobierno republicano legítimo?', opciones: ['Bando nacional','Bando sublevado','Bando republicano','Bando franquista'], correcta: 2 },
+  { texto: '4. ¿Qué países apoyaron militarmente al bando nacional durante la guerra?', opciones: ['Francia y Reino Unido','Alemania nazi e Italia fascista','Estados Unidos y Portugal','Unión Soviética y México'], correcta: 1 },
+  { texto: '5. ¿Qué fueron las Brigadas Internacionales?', opciones: ['Tropas enviadas por la URSS al bando nacional','Voluntarios extranjeros que lucharon en defensa de la República','Un cuerpo de élite del ejército franquista','Una organización humanitaria de la Cruz Roja'], correcta: 1 },
+  { texto: '6. ¿Qué ciudad fue bombardeada por la Legión Cóndor en 1937 y se convirtió en símbolo de la brutalidad de la guerra?', opciones: ['Madrid','Barcelona','Guernica','Bilbao'], correcta: 2 },
+  { texto: '7. ¿Qué poeta y dramaturgo de la Generación del 27 fue fusilado al comienzo de la guerra?', opciones: ['Antonio Machado','Rafael Alberti','Federico García Lorca','Miguel Hernández'], correcta: 2 },
+  { texto: '8. ¿En qué año terminó la Guerra Civil española?', opciones: ['1937','1938','1939','1940'], correcta: 2 },
+  { texto: '9. ¿Cómo se llama el período de gobierno autoritario que siguió a la guerra?', opciones: ['La Restauración','La Transición','El franquismo','La Segunda República'], correcta: 2 },
+  { texto: '10. ¿Qué término designa a quienes tuvieron que abandonar España por razones políticas?', opciones: ['Emigrantes','Refugiados','Exiliados','Deportados'], correcta: 2 }
+];
+
+const HUECOS_AUDIO = [
+  { texto: '1. La Guerra Civil española fue un conflicto que enfrentó a dos Españas con visiones ___ del país.', clave: 'irreconciliables' },
+  { texto: '2. El golpe de Estado del 18 de julio de 1936 fue liderado contra el gobierno ___.', clave: 'republicano' },
+  { texto: '3. El bando republicano contó con el apoyo de las ___.', clave: 'brigadas internacionales' },
+  { texto: '4. La Alemania nazi participó con la llamada Legión ___.', clave: 'cóndor' },
+  { texto: '5. El bombardeo de Guernica fue inmortalizado por Picasso en su célebre obra ___.', clave: 'guernica' },
+  { texto: '6. Antonio Machado murió exiliado en ___.', clave: 'colliure' },
+  { texto: '7. Miguel Hernández murió en la cárcel de ___ en 1942.', clave: 'alicante' },
+  { texto: '8. La guerra terminó con la victoria del bando ___ liderado por Franco.', clave: 'nacional' },
+  { texto: '9. Aproximadamente ___ españoles tuvieron que exiliarse.', clave: '500.000' },
+  { texto: '10. El franquismo impuso una dictadura que duró casi ___ años.', clave: '40' },
+  { texto: '11. La represión incluyó la prohibición de las lenguas ___.', clave: 'cooficiales' },
+  { texto: '12. La memoria histórica sigue siendo un tema ___ en España.', clave: 'controvertido' },
+  { texto: '13. La Transición española comenzó tras la muerte de Franco en ___.', clave: '1975' },
+  { texto: '14. España aprobó su Constitución democrática en ___.', clave: '1978' }
+];
+
+const HUECOS_LEXICO = [
+  { def: '1. Acción violenta e ilegal para derrocar a un gobierno.', clave: 'golpe de estado' },
+  { def: '2. Abandono forzado del propio país por razones políticas.', clave: 'exilio' },
+  { def: '3. Corriente artística y cultural que rompe con las formas tradicionales.', clave: 'vanguardia' },
+  { def: '4. Acción tomada en respuesta a un ataque o agravio.', clave: 'represalia' },
+  { def: '5. Zona de combate entre dos ejércitos enfrentados.', clave: 'frente' },
+  { def: '6. Grupos armados de civiles organizados para combatir.', clave: 'milicias' },
+  { def: '7. Control y supresión de información por parte del poder.', clave: 'censura' },
+  { def: '8. Difusión de información sesgada para influir en la opinión pública.', clave: 'propaganda' },
+  { def: '9. Zona alejada del frente donde se organiza el apoyo al ejército.', clave: 'retaguardia' },
+  { def: '10. Zanja excavada en el suelo para protegerse durante el combate.', clave: 'trinchera' },
+  { def: '11. Levantamiento o rebelión contra la autoridad establecida.', clave: 'sublevación' },
+  { def: '12. Proceso de eliminación de personas consideradas desleales.', clave: 'depuración' },
+  { def: '13. Acuerdo entre dos partes para poner fin a un conflicto armado.', clave: 'armisticio' }
+];
+
+const CLAVES_CL = ['G','F','A','B','E','D','E','C','A','J'];
+
+const FRASES_GRAM = [
+  { titulo: 'Frase 1 — Indefinido vs. imperfecto', contenido: `Original: "Cuando Franco llegó al poder, España vivía una situación de caos."\nVariante: "Cuando Franco llegó al poder, España vivió una situación de caos."\n\n¿Qué diferencia observas entre las dos versiones?` },
+  { titulo: 'Frase 2 — Pasiva perifrástica vs. pasiva refleja', contenido: `Original: "La Constitución fue aprobada en 1978."\nVariante: "La Constitución se aprobó en 1978."\n\n¿Qué matiz cambia entre las dos?` },
+  { titulo: 'Frase 3 — Estilo indirecto en pasado', contenido: `Original: Machado dijo: "Caminante, son tus huellas el camino y nada más."\nVariante: Machado dijo que el camino era lo que el caminante dejaba con sus huellas.\n\n¿Qué cambios gramaticales observas en la transformación al estilo indirecto?` },
+  { titulo: 'Frase 4 — Conectores del discurso histórico', contenido: `Original: "La República perdió la guerra. Sin embargo, su legado cultural fue enorme."\nVariante: "La República perdió la guerra, aunque su legado cultural fue enorme."\n\n¿Qué diferencia de registro o énfasis notas entre los dos conectores?` },
+  { titulo: 'Frase 5 — Ser / estar + participio', contenido: `Original: "El país estaba dividido en dos bandos irreconciliables."\nVariante: "El país era dividido en dos bandos irreconciliables."\n\n¿Cuál de las dos formas es correcta y por qué?` },
+  { titulo: 'Frase 6 — Perífrasis verbales', contenido: `Original: "Los exiliados tuvieron que abandonar su país de forma precipitada."\nVariante: "Los exiliados acabaron abandonando su país de forma precipitada."\n\n¿Qué diferencia de significado existe entre las dos perífrasis?` }
+];
+
+// ── ESTADO ───────────────────────────────────────────────
+
+let seccionActual = 0;
+let nombre = '', email = '';
+const TOTAL = 9;
+
+// ── INICIO ───────────────────────────────────────────────
+
+function iniciar() {
+  nombre = document.getElementById('inp-nombre').value.trim();
+  email  = document.getElementById('inp-email').value.trim();
+  if (!nombre || !email) { alert('Por favor, introduce tu nombre y correo electrónico.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('El correo electrónico no tiene un formato válido.'); return; }
+  document.getElementById('hero').style.display = 'none';
+  document.getElementById('navLateral').classList.add('visible');
+  document.getElementById('mainContent').classList.add('visible');
+  document.getElementById('progressBar').classList.add('visible');
+  document.getElementById('resumen-nombre').textContent = nombre;
+  document.getElementById('resumen-email').textContent = email;
+  construirActividades();
+  irA(0);
+}
+
+// ── CONSTRUCCIÓN DINÁMICA ─────────────────────────────────
+
+function construirActividades() {
+  // Opción múltiple
+  const contOM = document.getElementById('preguntas-om');
+  PREGUNTAS_OM.forEach((p, i) => {
+    const letras = ['a','b','c','d'];
+    const opts = p.opciones.map((o, j) => `
+      <div class="opcion" id="om-${i}-${j}" onclick="seleccionarOM(${i},${j})">
+        <span class="opcion-letra">${letras[j]})</span>
+        <span>${o}</span>
+      </div>`).join('');
+    contOM.innerHTML += `
+      <div class="pregunta-bloque" id="bloque-om-${i}">
+        <p class="pregunta-num">Pregunta ${i+1}</p>
+        <p class="pregunta-texto">${p.texto}</p>
+        <div class="opciones">${opts}</div>
+        <div class="feedback-respuesta" id="fb-om-${i}"></div>
+      </div>`;
+  });
+
+  // Huecos audio
+  const contAudio = document.getElementById('huecos-audio');
+  HUECOS_AUDIO.forEach((h, i) => {
+    contAudio.innerHTML += `
+      <div class="pregunta-bloque">
+        <p class="pregunta-texto">${h.texto}</p>
+        <input class="input-hueco" id="audio-${i}" type="text" placeholder="Escribe aquí...">
+        <div class="feedback-respuesta" id="fb-audio-${i}"></div>
+      </div>`;
+  });
+
+  // Léxico
+  const contLex = document.getElementById('huecos-lexico');
+  HUECOS_LEXICO.forEach((h, i) => {
+    contLex.innerHTML += `
+      <div class="pregunta-bloque">
+        <p class="pregunta-texto">${h.def}</p>
+        <input class="input-hueco" id="lex-${i}" type="text" placeholder="Escribe la palabra...">
+        <div class="feedback-respuesta" id="fb-lex-${i}"></div>
+      </div>`;
+  });
+
+  // Comprensión lectora
+  const contCL = document.getElementById('huecos-cl');
+  for (let i = 1; i <= 10; i++) {
+    contCL.innerHTML += `
+      <div class="pregunta-bloque">
+        <p class="pregunta-num">Hueco ${i}</p>
+        <input class="input-hueco" id="cl-${i-1}" type="text" placeholder="Escribe la letra (A-L)..." maxlength="2" style="text-transform:uppercase">
+        <div class="feedback-respuesta" id="fb-cl-${i-1}"></div>
+      </div>`;
+  }
+
+  // Gramática
+  const contGram = document.getElementById('frases-gram');
+  FRASES_GRAM.forEach((f, i) => {
+    contGram.innerHTML += `
+      <div class="pregunta-bloque">
+        <p class="pregunta-num">${f.titulo}</p>
+        <div class="frase-gram">${f.contenido}</div>
+        <textarea class="textarea-grande" id="gram-${i}" placeholder="Tu análisis gramatical..." style="min-height:100px; margin-top:12px"></textarea>
+      </div>`;
+  });
+}
+
+// ── NAVEGACIÓN ────────────────────────────────────────────
+
+function irA(n) {
+  document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('activo'));
+  document.getElementById(`sec-${n}`).classList.add('activa');
+  document.getElementById(`nav-${n}`).classList.add('activo');
+  seccionActual = n;
+  actualizarProgreso();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function siguiente(n) { if (n < TOTAL - 1) irA(n + 1); }
+function anterior(n)  { if (n > 0) irA(n - 1); }
+
+function actualizarProgreso() {
+  const pct = ((seccionActual) / (TOTAL - 1)) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ── OPCIÓN MÚLTIPLE ───────────────────────────────────────
+
+const seleccionesOM = {};
+
+function seleccionarOM(preg, opc) {
+  if (seleccionesOM[`bloqueado-${preg}`]) return;
+  document.querySelectorAll(`[id^="om-${preg}-"]`).forEach(el => el.classList.remove('seleccionada'));
+  document.getElementById(`om-${preg}-${opc}`).classList.add('seleccionada');
+  seleccionesOM[preg] = opc;
+}
+
+function comprobarOM() {
+  let correctas = 0;
+  PREGUNTAS_OM.forEach((p, i) => {
+    const sel = seleccionesOM[i];
+    const fb = document.getElementById(`fb-om-${i}`);
+    seleccionesOM[`bloqueado-${i}`] = true;
+    if (sel === undefined) {
+      fb.className = 'feedback-respuesta incorrecto';
+      fb.textContent = 'Sin respuesta. Respuesta correcta: ' + p.opciones[p.correcta];
+      return;
+    }
+    const elSel = document.getElementById(`om-${i}-${sel}`);
+    const elCor = document.getElementById(`om-${i}-${p.correcta}`);
+    if (sel === p.correcta) {
+      elSel.classList.remove('seleccionada'); elSel.classList.add('correcta');
+      fb.className = 'feedback-respuesta correcto'; fb.textContent = '✓ Correcto';
+      correctas++;
+    } else {
+      elSel.classList.remove('seleccionada'); elSel.classList.add('incorrecta');
+      elCor.classList.add('correcta');
+      fb.className = 'feedback-respuesta incorrecto';
+      fb.textContent = '✗ Incorrecto. Respuesta correcta: ' + p.opciones[p.correcta];
+    }
+  });
+  const nota = Math.round((correctas / 10) * 10);
+  mostrarResultado('om', nota, `${correctas} de 10 correctas`);
+}
+
+// ── AUDIO ─────────────────────────────────────────────────
+
+function normalizar(t) {
+  return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,'').trim();
+}
+
+function comprobarAudio() {
+  let correctas = 0;
+  HUECOS_AUDIO.forEach((h, i) => {
+    const val = document.getElementById(`audio-${i}`).value;
+    const inp = document.getElementById(`audio-${i}`);
+    const fb  = document.getElementById(`fb-audio-${i}`);
+    const ok  = normalizar(val).includes(normalizar(h.clave));
+    inp.classList.toggle('correcto', ok);
+    inp.classList.toggle('incorrecto', !ok);
+    fb.className = 'feedback-respuesta ' + (ok ? 'correcto' : 'incorrecto');
+    fb.textContent = ok ? '✓ Correcto' : `✗ Respuesta esperada: ${h.clave}`;
+    if (ok) correctas++;
+  });
+  const nota = Math.round((correctas / 14) * 10);
+  mostrarResultado('audio', nota, `${correctas} de 14 correctas`);
+}
+
+// ── LÉXICO ────────────────────────────────────────────────
+
+function comprobarLexico() {
+  let correctas = 0;
+  HUECOS_LEXICO.forEach((h, i) => {
+    const val = document.getElementById(`lex-${i}`).value;
+    const inp = document.getElementById(`lex-${i}`);
+    const fb  = document.getElementById(`fb-lex-${i}`);
+    const ok  = normalizar(val) === normalizar(h.clave);
+    inp.classList.toggle('correcto', ok);
+    inp.classList.toggle('incorrecto', !ok);
+    fb.className = 'feedback-respuesta ' + (ok ? 'correcto' : 'incorrecto');
+    fb.textContent = ok ? '✓ Correcto' : `✗ Respuesta esperada: ${h.clave}`;
+    if (ok) correctas++;
+  });
+  const nota = Math.round((correctas / 13) * 10);
+  mostrarResultado('lexico', nota, `${correctas} de 13 correctas`);
+}
+
+// ── COMPRENSIÓN LECTORA ───────────────────────────────────
+
+function comprobarCL() {
+  let correctas = 0;
+  CLAVES_CL.forEach((clave, i) => {
+    const val = document.getElementById(`cl-${i}`).value;
+    const inp = document.getElementById(`cl-${i}`);
+    const fb  = document.getElementById(`fb-cl-${i}`);
+    const ok  = val.trim().toUpperCase() === clave;
+    inp.classList.toggle('correcto', ok);
+    inp.classList.toggle('incorrecto', !ok);
+    fb.className = 'feedback-respuesta ' + (ok ? 'correcto' : 'incorrecto');
+    fb.textContent = ok ? '✓ Correcto' : `✗ Respuesta correcta: ${clave}`;
+    if (ok) correctas++;
+  });
+  const nota = Math.round((correctas / 10) * 10);
+  mostrarResultado('cl', nota, `${correctas} de 10 correctas`);
+}
+
+// ── CONTADOR PALABRAS ─────────────────────────────────────
+
+function contarPalabras() {
+  const texto = document.getElementById('produccion').value.trim();
+  const palabras = texto ? texto.split(/\s+/).length : 0;
+  const cont = document.getElementById('contador');
+  cont.textContent = `${palabras} / 250 palabras`;
+  cont.className = 'contador-palabras';
+  if (palabras >= 220 && palabras <= 250) cont.classList.add('ok');
+  else if (palabras > 250) cont.classList.add('exceso');
+}
+
+// ── RESULTADO ─────────────────────────────────────────────
+
+function mostrarResultado(id, nota, detalle) {
+  const box = document.getElementById(`resultado-${id}`);
+  const num = document.getElementById(`nota-${id}-num`);
+  const det = document.getElementById(`detalle-${id}`);
+  box.classList.add('visible');
+  num.textContent = nota + '/10';
+  num.className = 'nota-grande ' + (nota >= 6 ? 'verde' : nota >= 4 ? 'amarillo' : 'rojo');
+  det.textContent = detalle;
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>
